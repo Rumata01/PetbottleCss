@@ -1,0 +1,66 @@
+/* =========================================
+   MODERN CSS RESET (2025)
+   ========================================= */
+
+/* 1. Kutu Modelini Düzelt */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* 2. Varsayılan marginleri sıfırla */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* 3. HTML ve Body ayarları */
+html, body {
+  height: 100%;
+  scroll-behavior: smooth; /* Yumuşak kaydırma */
+}
+
+body {
+  line-height: var(--line-height-base);
+  -webkit-font-smoothing: antialiased; /* Fontları keskinleştir (Mac) */
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* 4. Medya öğelerini responsive yap */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 5. Form elemanları font mirasını alsın */
+input, button, textarea, select {
+  font: inherit;
+}
+
+/* 6. Textarea boyutlandırmasını kısıtla */
+textarea {
+  resize: vertical; /* Sadece dikey uzasın */
+  field-sizing: content; /* [YENİ] İçeriğe göre otomatik uza (Modern Chrome) */
+}
+
+/* 7. Başlıkların satır sonlarını dengele (Yetim kelimeleri önler) */
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+/* 8. Uzun paragrafları güzelleştir */
+p {
+  text-wrap: pretty; /* [YENİ] Daha estetik paragraf blokları */
+  max-width: 70ch; /* Okunabilirlik için ideal satır uzunluğu */
+}
+
+/* 9. Erişilebilir Odak (Sadece klavyede outline göster) */
+:focus-visible {
+  outline: 2px solid var(--brand-main);
+  outline-offset: 2px;
+}
+
+/* 10. Stack Context (Z-index karmaşasını önler) */
+#root, #__next {
+  isolation: isolate;
+}

@@ -1,0 +1,20 @@
+@layer reset, base, themes, layout, components, utilities;
+
+@import "base/reset.css" layer(reset);
+@import "base/variables.css" layer(base);
+@import "base/typography.css" layer(base);
+
+@import "themes/light.css" layer(themes);
+@import "themes/dark.css" layer(themes);
+@import "themes/forest.css" layer(themes);
+@import "themes/ocean.css" layer(themes);
+@import "themes/sunset.css" layer(themes);
+
+@import "layout/app.css" layer(layout);
+@import "layout/sidebar.css" layer(layout);
+@import "layout/editor.css" layer(layout);
+@import "layout/split-view.css" layer(layout);
+@import "layout/modals.css" layer(layout);
+
+@import "components/animation.css" layer(utilities);
+@import "utilities/helpers.css" layer(utilities);
