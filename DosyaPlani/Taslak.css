@@ -1,0 +1,94 @@
+/* =========================================
+   EDİTÖR ALANI & YAZMA DENEYİMİ
+   ========================================= */
+
+/* 1. EDİTÖR KAPLAYICISI (Scroll Alanı) */
+.editor-wrapper {
+  /* Editörün kendi scroll alanı olsun, sayfa kaymasın */
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  
+  /* İçeriği her zaman ortala */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  /* Arkaplan (Kağıt hissi istenirse burası 'white' olabilir) */
+  background-color: var(--bg-app);
+  
+  /* Tıklayınca odaklanmayı kolaylaştır */
+  cursor: text;
+  
+  /* Scrollbar estetiği */
+  scrollbar-gutter: stable; /* Scrollbar açılınca içerik zıplamasın */
+}
+
+/* 2. EDİTÖR İÇERİĞİ ("Kağıt" Alanı) */
+.editor-content {
+  /* Genişlik Kontrolü: Çok geniş satırlar okunabilirliği bozar */
+  width: 100%;
+  max-width: var(--max-content-width); /* ~900px ideal */
+  
+  /* Responsive Boşluklar (Clamp ile akışkan padding) */
+  /* Mobilde az, masaüstünde ferah boşluk */
+  padding-inline: clamp(var(--space-4), 5vw, var(--space-8));
+  padding-block: var(--space-8) var(--space-xl); /* Üst/Alt boşluk */
+  
+  /* --- MODERN CSS GÜCÜ: CONTAINER QUERIES --- */
+  /* İçindeki elemanlar (resim, kod bloğu) artık ekranı değil,
+     bu kutunun genişliğini baz alarak şekillenecek. */
+  container-type: inline-size;
+  container-name: editor;
+  
+  /* Performans: Çok uzun dokümanlarda render hızını artır */
+  content-visibility: auto; 
+  contain-intrinsic-size: 0 500px;
+}
+
+/* 3. BELGE BAŞLIĞI (H1 Benzeri Input) */
+.document-title {
+  /* Input reset */
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  resize: none; /* Textarea ise */
+  
+  /* Tipografi */
+  font-family: var(--font-display, var(--font-main));
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-main);
+  
+  /* Boşluk */
+  margin-bottom: var(--space-6);
+  padding: 0;
+}
+
+/* Placeholder rengi */
+.document-title::placeholder {
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+/* 4. METİN SEÇİMİ (Premium His) */
+/* Kullanıcı metni seçtiğinde varsayılan mavi yerine marka rengi */
+::selection {
+  background-color: var(--brand-light); /* Arkaplan */
+  color: var(--brand-dark); /* Metin */
+}
+
+/* 5. FOCUS MODE (Opsiyonel Özellik) */
+/* JS ile body'e 'focus-mode' class'ı eklenirse çalışır */
+body.focus-mode .sidebar {
+  opacity: 0.1; /* Yan menüyü soluklaştır */
+  pointer-events: none; /* Tıklamayı engelle */
+  transition: opacity 0.5s ease;
+}
+
+body.focus-mode .editor-content {
+  max-width: 800px; /* Biraz daha daraltarak odaklanmayı artır */
+}
