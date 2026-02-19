@@ -1,94 +1,74 @@
 /* =========================================
-   EDİTÖR ALANI & YAZMA DENEYİMİ
+   METİN BLOKLARI (Paragraf & Başlıklar)
    ========================================= */
 
-/* 1. EDİTÖR KAPLAYICISI (Scroll Alanı) */
-.editor-wrapper {
-  /* Editörün kendi scroll alanı olsun, sayfa kaymasın */
-  height: 100%;
-  width: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
-  
-  /* İçeriği her zaman ortala */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  
-  /* Arkaplan (Kağıt hissi istenirse burası 'white' olabilir) */
-  background-color: var(--bg-app);
-  
-  /* Tıklayınca odaklanmayı kolaylaştır */
-  cursor: text;
-  
-  /* Scrollbar estetiği */
-  scrollbar-gutter: stable; /* Scrollbar açılınca içerik zıplamasın */
-}
-
-/* 2. EDİTÖR İÇERİĞİ ("Kağıt" Alanı) */
-.editor-content {
-  /* Genişlik Kontrolü: Çok geniş satırlar okunabilirliği bozar */
-  width: 100%;
-  max-width: var(--max-content-width); /* ~900px ideal */
-  
-  /* Responsive Boşluklar (Clamp ile akışkan padding) */
-  /* Mobilde az, masaüstünde ferah boşluk */
-  padding-inline: clamp(var(--space-4), 5vw, var(--space-8));
-  padding-block: var(--space-8) var(--space-xl); /* Üst/Alt boşluk */
-  
-  /* --- MODERN CSS GÜCÜ: CONTAINER QUERIES --- */
-  /* İçindeki elemanlar (resim, kod bloğu) artık ekranı değil,
-     bu kutunun genişliğini baz alarak şekillenecek. */
-  container-type: inline-size;
-  container-name: editor;
-  
-  /* Performans: Çok uzun dokümanlarda render hızını artır */
-  content-visibility: auto; 
-  contain-intrinsic-size: 0 500px;
-}
-
-/* 3. BELGE BAŞLIĞI (H1 Benzeri Input) */
-.document-title {
-  /* Input reset */
-  background: transparent;
-  border: none;
-  outline: none;
-  width: 100%;
-  resize: none; /* Textarea ise */
-  
-  /* Tipografi */
-  font-family: var(--font-display, var(--font-main));
-  font-size: clamp(2rem, 4vw, 2.5rem);
-  font-weight: 700;
-  line-height: 1.2;
+/* 1. PARAGRAFLAR (Text Block) */
+.block-text {
+  font-size: var(--text-base);
+  line-height: var(--line-height-base);
   color: var(--text-main);
-  
-  /* Boşluk */
-  margin-bottom: var(--space-6);
-  padding: 0;
+  margin: 0; /* Marginleri wrapper (.editor-block) yönetecek */
+  outline: none; /* İçerik düzenlenebilir (contenteditable) olduğunda outline'ı gizle */
 }
 
-/* Placeholder rengi */
-.document-title::placeholder {
+/* 2. BOŞ BLOK YER TUTUCUSU (Placeholder) */
+/* Eğer paragraf boşsa "B" yazıp yönlendirme yap (Notion tarzı) */
+.block-text:empty::before {
+  content: attr(data-placeholder); /* HTML'den gelecek: data-placeholder="Bir şeyler yazın..." */
   color: var(--text-muted);
-  opacity: 0.5;
+  opacity: 0.6;
+  pointer-events: none; /* Tıklanmayı engelle, altındaki text alanına geçsin */
+  font-style: italic;
 }
 
-/* 4. METİN SEÇİMİ (Premium His) */
-/* Kullanıcı metni seçtiğinde varsayılan mavi yerine marka rengi */
-::selection {
-  background-color: var(--brand-light); /* Arkaplan */
-  color: var(--brand-dark); /* Metin */
+/* 3. BAŞLIK BLOKLARI */
+/* Base typograpghy'den miras alır, burada editöre özel ayarlar yapılır */
+.block-h1, .block-h2, .block-h3 {
+  outline: none;
+  margin: 0;
+  margin-top: var(--space-4); /* Başlıkların üstünde biraz daha fazla boşluk */
+  color: var(--text-main);
 }
 
-/* 5. FOCUS MODE (Opsiyonel Özellik) */
-/* JS ile body'e 'focus-mode' class'ı eklenirse çalışır */
-body.focus-mode .sidebar {
-  opacity: 0.1; /* Yan menüyü soluklaştır */
-  pointer-events: none; /* Tıklamayı engelle */
-  transition: opacity 0.5s ease;
+.block-h1 {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
-body.focus-mode .editor-content {
-  max-width: 800px; /* Biraz daha daraltarak odaklanmayı artır */
+.block-h2 {
+  font-size: var(--text-xl);
+  font-weight: 600;
+  border-bottom: 1px solid var(--border-subtle); /* H2 için hafif ayırıcı çizgi */
+  padding-bottom: var(--space-2);
+}
+
+.block-h3 {
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+/* 4. SATIR İÇİ VURGULAR (Inline Styles) */
+.block-text strong {
+  font-weight: 600;
+  color: var(--text-main); /* Koyu temada kaybolmaması için */
+}
+
+.block-text em {
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+/* Metin Vurgulama (Highlight) */
+.block-text mark {
+  background-color: var(--warning); /* Değişkenlerden sıcak turuncu/sarı */
+  color: var(--gray-900);
+  padding: 0 0.2em;
+  border-radius: 2px;
+}
+
+/* Üstü çizili metin */
+.block-text s {
+  text-decoration-color: var(--danger); /* Çizgi rengini belirgin yap */
+  opacity: 0.8;
 }
