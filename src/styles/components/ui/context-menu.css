@@ -1,5 +1,5 @@
 .context-menu {
-  poisiton: absolute;
+  position: absolute;
   z-index: var(--z-tooltip, 9999);
 
   min-width: 200px;
