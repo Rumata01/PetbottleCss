@@ -16,5 +16,22 @@
 @import "layout/split-view.css" layer(layout);
 @import "layout/modals.css" layer(layout);
 
-@import "components/animation.css" layer(utilities);
+@import "components/ui/buttons.css" layer(components);
+@import "components/ui/command-panel.css" layer(components);
+@import "components/ui/context-menu.css" layer(components);
+@import "components/ui/drag-handle.css" layer(components);
+@import "components/ui/file-icons.css" layer(components);
+@import "components/ui/inputs.css" layer(components);
+@import "components/ui/toast.css" layer(components);
+@import "components/ui/auth.css" layer(components);
+
+@import "components/blocks/base.css" layer(components);
+@import "components/blocks/callout.css" layer(components);
+@import "components/blocks/code.css" layer(components);
+@import "components/blocks/divider.css" layer(components);
+@import "components/blocks/lists.css" layer(components);
+@import "components/blocks/quote.css" layer(components);
+@import "components/blocks/text.css" layer(components);
+@import "components/blocks/toggle.css" layer(components);
+@import "utilities/animations.css" layer(utilities);
 @import "utilities/helpers.css" layer(utilities);
